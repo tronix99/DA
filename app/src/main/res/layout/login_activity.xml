@@ -18,7 +18,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/logo" />
+            android:background="@color/colorBackground" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
