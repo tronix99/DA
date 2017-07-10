@@ -6,10 +6,10 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
-import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.arx_era.digitalattendance.R;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +30,7 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     //Defining views
-    private EditText editTextEmail;
+    private EditText editTextUser;
     private EditText editTextPassword;
     private AppCompatButton buttonLogin;
 
@@ -43,7 +44,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
 
         //Initializing views
-        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
+        editTextUser = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
 
         buttonLogin = (AppCompatButton) findViewById(R.id.buttonLogin);
@@ -71,7 +72,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void login() {
         //Getting values from edit texts
-        final String email = editTextEmail.getText().toString().trim();
+        final String user = editTextUser.getText().toString().trim();
         final String password = editTextPassword.getText().toString().trim();
 
         //Creating a string request
@@ -89,7 +90,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                             //Adding values to editor
                             editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, true);
-                            editor.putString(Config.EMAIL_SHARED_PREF, email);
+                            editor.putString(Config.EMAIL_SHARED_PREF, user);
 
                             //Saving values to editor
                             editor.commit();
@@ -114,7 +115,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 //Adding parameters to request
-                params.put(Config.KEY_EMAIL, email);
+                params.put(Config.KEY_USER, user);
                 params.put(Config.KEY_PASSWORD, password);
 
                 //returning parameter
@@ -134,4 +135,4 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 }
 
-}
+

@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.arx_era.digitalattendance.R;
+
 public class ProfileActivity extends AppCompatActivity {
 
     //Textview to show currently logged in user
