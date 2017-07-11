@@ -40,11 +40,11 @@ public class MainActivity extends Activity {
         // Fetching user details from sqlite
         HashMap<String, String> user = db.getUserDetails();
 
-        String name = user.get("name");
+        String username = user.get("username");
         String email = user.get("email");
 
         // Displaying the user details on the screen
-        txtName.setText(name);
+        txtName.setText(username);
         txtEmail.setText(email);
 
         // Logout button click event

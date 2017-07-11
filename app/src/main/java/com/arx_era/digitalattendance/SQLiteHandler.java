@@ -67,7 +67,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, username); // Name
+        values.put(KEY_NAME, username); // Username
         values.put(KEY_EMAIL, email); // Email
         values.put(KEY_UID, uid); // Email
         values.put(KEY_CREATED_AT, created_at); // Created At

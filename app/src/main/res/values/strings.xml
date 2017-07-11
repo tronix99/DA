@@ -1,15 +1,21 @@
 <resources>
     <string name="app_name">Digital Attendance</string>
 
-    <string name="hint_email">Email</string>
-    <string name="hint_password">Password</string>
-    <string name="hint_name">Fullname</string>
+    //activity_login.xml
+    <string name="login_username">Enter Username</string>
+    <string name="login_password">Enter Password</string>
     <string name="btn_login">LOGIN</string>
-    <string name="btn_register">REGISTER</string>
     <string name="btn_link_to_register">Not a member? Sign up now.</string>
+
+    //activity_register.xml
+    <string name="register_email">Email</string>
+    <string name="register_password">Password</string>
+    <string name="register_name">Username</string>
+    <string name="btn_register">REGISTER</string>
     <string name="btn_link_to_login">Already registred! Login Me.</string>
+
+    //activity_main.xml
     <string name="welcome">Welcome</string>
     <string name="btn_logout">LOGOUT</string>
-    <string name="name">Fullname</string>
 
 </resources>
