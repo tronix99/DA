@@ -5,8 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
-
 import java.util.HashMap;
 import android.widget.TextView;
 
@@ -15,7 +13,6 @@ public class HomeActivity extends AppCompatActivity {
     private TextView txtName;
     private TextView txtEmail;
     private Button btnLogout;
-
     private SQLiteHandler db;
     private SessionManager session;
 
@@ -60,11 +57,9 @@ public class HomeActivity extends AppCompatActivity {
      * */
     private void logoutUser() {
         session.setLogin(false);
-
         db.deleteUsers();
-
         // Launching the login activity
-        Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+        Intent intent = new Intent(HomeActivity.this, LoginRegisterActivity.class);
         startActivity(intent);
         finish();
     }

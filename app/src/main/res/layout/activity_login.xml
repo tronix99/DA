@@ -10,44 +10,41 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp" >
+        android:paddingRight="20dp"
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/username"
             android:layout_width="fill_parent"
-            android:layout_height="43dp"
+            android:layout_height="50dp"
             android:background="@drawable/topedgerect"
             android:hint="@string/login_username"
-            android:inputType="textEmailAddress"
-            android:padding="10dp"
-            android:singleLine="true"
+            android:inputType="text"
+            android:maxLines="1"
             android:textColor="@color/greytext"
-            android:textColorHint="@color/input_login_hint"
+            android:textColorHint="@color/greytext"
             android:gravity="center"/>
 
         <EditText
             android:id="@+id/password"
             android:layout_width="fill_parent"
-            android:layout_height="43dp"
+            android:layout_height="50dp"
             android:layout_marginBottom="5dp"
             android:background="@drawable/botedgerect"
             android:hint="@string/login_password"
             android:inputType="textPassword"
-            android:padding="10dp"
-            android:singleLine="true"
+            android:maxLines="1"
             android:textColor="@color/greytext"
-            android:textColorHint="@color/input_login_hint"
+            android:textColorHint="@color/greytext"
             android:gravity="center"/>
 
         <Button
             android:id="@+id/btnLogin"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edgerect"
+            android:layout_width="320dp"
+            android:layout_height="50dp"
             android:layout_marginTop="5dp"
+            android:background="@drawable/edgerect"
             android:text="@string/btn_login"
             android:textColor="@color/white" />
     </LinearLayout>
