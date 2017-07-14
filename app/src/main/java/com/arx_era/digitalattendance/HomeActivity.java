@@ -1,15 +1,16 @@
 package com.arx_era.digitalattendance;
 
-import java.util.HashMap;
-
-import android.app.Activity;
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+
+import java.util.HashMap;
 import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class HomeActivity extends AppCompatActivity {
 
     private TextView txtName;
     private TextView txtEmail;
@@ -21,7 +22,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home);
 
         txtName = (TextView) findViewById(R.id.name);
         txtEmail = (TextView) findViewById(R.id.email);
@@ -33,18 +34,14 @@ public class MainActivity extends Activity {
         // session manager
         session = new SessionManager(getApplicationContext());
 
-        if (!session.isLoggedIn()) {
-            logoutUser();
-        }
-
         // Fetching user details from sqlite
         HashMap<String, String> user = db.getUserDetails();
 
-        String username = user.get("username");
+        String name = user.get("username");
         String email = user.get("email");
 
         // Displaying the user details on the screen
-        txtName.setText(username);
+        txtName.setText(name);
         txtEmail.setText(email);
 
         // Logout button click event
@@ -67,7 +64,7 @@ public class MainActivity extends Activity {
         db.deleteUsers();
 
         // Launching the login activity
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
     }

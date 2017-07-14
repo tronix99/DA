@@ -4,12 +4,15 @@ package com.arx_era.digitalattendance;
  * Created by Tronix99 on 10-07-2017.
  */
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -26,10 +29,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class RegisterActivity extends Activity {
+public class RegisterActivity extends Fragment {
+
     private static final String TAG = RegisterActivity.class.getSimpleName();
     private Button btnRegister;
-    private Button btnLinkToLogin;
     private EditText inputUsername;
     private EditText inputEmail;
     private EditText inputPassword;
@@ -37,35 +40,27 @@ public class RegisterActivity extends Activity {
     private SessionManager session;
     private SQLiteHandler db;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
 
-        inputUsername = (EditText) findViewById(R.id.username);
-        inputEmail = (EditText) findViewById(R.id.email);
-        inputPassword = (EditText) findViewById(R.id.password);
-        btnRegister = (Button) findViewById(R.id.btnRegister);
-        btnLinkToLogin = (Button) findViewById(R.id.btnLinkToLoginScreen);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View rootView = inflater.inflate(R.layout.activity_register, container, false);
+
+        inputUsername = (EditText) rootView.findViewById(R.id.username);
+        inputEmail = (EditText) rootView.findViewById(R.id.email);
+        inputPassword = (EditText) rootView.findViewById(R.id.password);
+        btnRegister = (Button) rootView.findViewById(R.id.btnRegister);
 
         // Progress dialog
-        pDialog = new ProgressDialog(this);
+        pDialog = new ProgressDialog(getActivity());
         pDialog.setCancelable(false);
 
         // Session manager
-        session = new SessionManager(getApplicationContext());
+        session = new SessionManager(getActivity().getApplicationContext());
 
         // SQLite database handler
-        db = new SQLiteHandler(getApplicationContext());
-
-        // Check if user is already logged in or not
-        if (session.isLoggedIn()) {
-            // User is already logged in. Take him to main activity
-            Intent intent = new Intent(RegisterActivity.this,
-                    MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
+        db = new SQLiteHandler(getActivity().getApplicationContext());
 
         // Register Button Click event
         btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -77,24 +72,14 @@ public class RegisterActivity extends Activity {
                 if (!username.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
                     registerUser(username, email, password);
                 } else {
-                    Toast.makeText(getApplicationContext(),
+                    Toast.makeText(getActivity().getApplicationContext(),
                             "Please enter your details!", Toast.LENGTH_LONG)
                             .show();
                 }
             }
         });
 
-        // Link to Login Screen
-        btnLinkToLogin.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),
-                        LoginActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
-
+        return rootView;
     }
 
     /**
@@ -114,7 +99,6 @@ public class RegisterActivity extends Activity {
 
             @Override
             public void onResponse(String response) {
-                Log.d(TAG, "Register Response: " + response.toString());
                 hideDialog();
 
                 try {
@@ -134,20 +118,17 @@ public class RegisterActivity extends Activity {
                         // Inserting row in users table
                         db.addUser(username, email, uid, created_at);
 
-                        Toast.makeText(getApplicationContext(), "User successfully registered. Try login now!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity().getApplicationContext(), "User successfully registered. Try login now!", Toast.LENGTH_LONG).show();
 
-                        // Launch login activity
-                        Intent intent = new Intent(
-                                RegisterActivity.this,
-                                LoginActivity.class);
-                        startActivity(intent);
-                        finish();
+                        ViewPager viewPager =(ViewPager) getActivity().findViewById(R.id.viewpager);
+                        viewPager.setCurrentItem(0);
+
                     } else {
 
                         // Error occurred in registration. Get the error
                         // message
                         String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(),
+                        Toast.makeText(getActivity().getApplicationContext(),
                                 errorMsg, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
@@ -159,8 +140,7 @@ public class RegisterActivity extends Activity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Registration Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
+                Toast.makeText(getActivity().getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
                 hideDialog();
             }

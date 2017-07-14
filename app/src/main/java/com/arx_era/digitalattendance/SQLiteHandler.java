@@ -46,8 +46,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
                 + KEY_EMAIL + " TEXT UNIQUE," + KEY_UID + " TEXT,"
                 + KEY_CREATED_AT + " TEXT" + ")";
         db.execSQL(CREATE_LOGIN_TABLE);
-
-        Log.d(TAG, "Database tables created");
     }
 
     // Upgrading database
@@ -75,8 +73,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         // Inserting Row
         long id = db.insert(TABLE_USER, null, values);
         db.close(); // Closing database connection
-
-        Log.d(TAG, "New user inserted into sqlite: " + id);
     }
 
     /**
@@ -98,9 +94,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         }
         cursor.close();
         db.close();
-        // return user
-        Log.d(TAG, "Fetching user from Sqlite: " + user.toString());
-
         return user;
     }
 
@@ -112,8 +105,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         // Delete All Rows
         db.delete(TABLE_USER, null, null);
         db.close();
-
-        Log.d(TAG, "Deleted all user info from sqlite");
     }
 
 }

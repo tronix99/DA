@@ -2,8 +2,8 @@
     <string name="app_name">Digital Attendance</string>
 
     //activity_login.xml
-    <string name="login_username">Enter Username</string>
-    <string name="login_password">Enter Password</string>
+    <string name="login_username">Username</string>
+    <string name="login_password">****</string>
     <string name="btn_login">LOGIN</string>
     <string name="btn_link_to_register">Not a member? Sign up now.</string>
 
