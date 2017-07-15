@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/colorPrimaryDark"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="10dp" >
@@ -10,7 +9,6 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:orientation="vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp" >
@@ -18,10 +16,9 @@
         <EditText
             android:id="@+id/username"
             android:layout_width="fill_parent"
-            android:layout_height="44dp"
+            android:layout_height="50dp"
             android:background="@drawable/topedgerect"
             android:hint="@string/register_name"
-            android:padding="10dp"
             android:singleLine="true"
             android:inputType="textCapWords"
             android:textColor="@color/greytext"
@@ -30,11 +27,10 @@
         <EditText
             android:id="@+id/email"
             android:layout_width="fill_parent"
-            android:layout_height="44dp"
+            android:layout_height="50dp"
             android:background="@color/white"
             android:hint="@string/register_email"
             android:inputType="textEmailAddress"
-            android:padding="10dp"
             android:singleLine="true"
             android:textColor="@color/greytext"
             android:gravity="center"/>
@@ -42,11 +38,10 @@
         <EditText
             android:id="@+id/password"
             android:layout_width="fill_parent"
-            android:layout_height="44dp"
+            android:layout_height="50dp"
             android:background="@drawable/botedgerect"
             android:hint="@string/register_password"
             android:inputType="textPassword"
-            android:padding="10dp"
             android:singleLine="true"
             android:textColor="@color/greytext"
             android:gravity="center"/>
@@ -54,8 +49,8 @@
         <Button
             android:id="@+id/btnRegister"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/edgerect"
             android:text="@string/btn_register"
             android:textColor="@color/white" />

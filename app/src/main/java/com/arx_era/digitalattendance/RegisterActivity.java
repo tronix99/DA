@@ -5,10 +5,12 @@ package com.arx_era.digitalattendance;
  */
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,9 +70,11 @@ public class RegisterActivity extends Fragment {
                 String username = inputUsername.getText().toString().trim();
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
+                TelephonyManager manager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+                String imeiid = manager.getDeviceId();
 
                 if (!username.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
-                    registerUser(username, email, password);
+                    registerUser(username, email, imeiid, password);
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(),
                             "Please enter your details!", Toast.LENGTH_LONG)
@@ -87,7 +91,7 @@ public class RegisterActivity extends Fragment {
      * email, password) to register url
      */
     private void registerUser(final String username, final String email,
-                              final String password) {
+                              final String imeiid, final String password) {
         // Tag used to cancel the request
         String tag_string_req = "req_register";
 
@@ -112,11 +116,12 @@ public class RegisterActivity extends Fragment {
                         JSONObject user = jObj.getJSONObject("user");
                         String username = user.getString("username");
                         String email = user.getString("email");
+                        String imeiid = user.getString("imeiid");
                         String created_at = user
                                 .getString("created_at");
 
                         // Inserting row in users table
-                        db.addUser(username, email, uid, created_at);
+                        db.addUser(username, email, imeiid, uid, created_at);
 
                         Toast.makeText(getActivity().getApplicationContext(), "User successfully registered. Try login now!", Toast.LENGTH_LONG).show();
 
@@ -152,6 +157,7 @@ public class RegisterActivity extends Fragment {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("username", username);
                 params.put("email", email);
+                params.put("imeiid", imeiid);
                 params.put("password", password);
 
                 return params;

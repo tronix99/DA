@@ -5,9 +5,11 @@ package com.arx_era.digitalattendance;
  */
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,11 +65,12 @@ public class LoginActivity extends Fragment {
             public void onClick(View view) {
                 String username = inputUsername.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
-
+                TelephonyManager manager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+                String imeiid = manager.getDeviceId();
                 // Check for empty data in the form
                 if (!username.isEmpty() && !password.isEmpty()) {
                     // login user
-                    checkLogin(username, password);
+                    checkLogin(username, imeiid, password);
                 } else {
                     // Prompt user to enter credentials
                     Toast.makeText(getActivity().getApplicationContext(),
@@ -84,7 +87,7 @@ public class LoginActivity extends Fragment {
     /**
      * function to verify login details in mysql db
      * */
-    private void checkLogin(final String username, final String password) {
+    private void checkLogin(final String username, final String imeiid, final String password) {
         // Tag used to cancel the request
         String tag_string_req = "req_login";
 
@@ -113,11 +116,12 @@ public class LoginActivity extends Fragment {
                         JSONObject user = jObj.getJSONObject("user");
                         String username = user.getString("username");
                         String email = user.getString("email");
+                        String imeiid = user.getString("imeiid");
                         String created_at = user
                                 .getString("created_at");
 
                         // Inserting row in users table
-                        db.addUser(username, email, uid, created_at);
+                        db.addUser(username, email, imeiid, uid, created_at);
 
                         // Launch main activity
                         Intent intent = new Intent(getActivity(),
@@ -153,6 +157,7 @@ public class LoginActivity extends Fragment {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("username", username);
+                params.put("imeiid", imeiid);
                 params.put("password", password);
 
                 return params;

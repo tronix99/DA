@@ -27,7 +27,13 @@
             android:textSize="24dp" />
 
         <TextView
-            android:id="@+id/email"
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/imeiid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="13dp" />
@@ -42,6 +48,12 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15dp" />
+
+        <Button
+            android:id="@+id/test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="test"/>
     </LinearLayout>
 
 </RelativeLayout>
