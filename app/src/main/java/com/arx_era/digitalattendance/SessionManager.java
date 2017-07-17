@@ -7,12 +7,8 @@ package com.arx_era.digitalattendance;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.util.Log;
 
 public class SessionManager {
-    // LogCat tag
-    private static String TAG = SessionManager.class.getSimpleName();
-
     // Shared Preferences
     SharedPreferences pref;
 
@@ -23,7 +19,7 @@ public class SessionManager {
     int PRIVATE_MODE = 0;
 
     // Shared preferences file name
-    private static final String PREF_NAME = "Login";
+    private static final String PREF_NAME = "LoginDetails";
 
     private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
 

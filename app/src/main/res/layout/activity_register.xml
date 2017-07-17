@@ -21,18 +21,20 @@
             android:hint="@string/register_name"
             android:singleLine="true"
             android:inputType="textCapWords"
-            android:textColor="@color/greytext"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:gravity="center"/>
 
         <EditText
             android:id="@+id/email"
             android:layout_width="fill_parent"
             android:layout_height="50dp"
-            android:background="@color/white"
+            android:background="@color/traslucent"
             android:hint="@string/register_email"
             android:inputType="textEmailAddress"
             android:singleLine="true"
-            android:textColor="@color/greytext"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:gravity="center"/>
 
         <EditText
@@ -43,7 +45,8 @@
             android:hint="@string/register_password"
             android:inputType="textPassword"
             android:singleLine="true"
-            android:textColor="@color/greytext"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:gravity="center"/>
 
         <Button

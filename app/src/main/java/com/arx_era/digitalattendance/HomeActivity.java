@@ -13,8 +13,7 @@ import android.widget.Toast;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private TextView txtName;
-    private TextView txtEmail,txtImeiid;
+    private TextView txtName,txtEmail,txtImeiid;
     private Button btnLogout;
     private SQLiteHandler db;
     private SessionManager session;
@@ -53,18 +52,6 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 logoutUser();
-            }
-        });
-
-        Button test = (Button) findViewById(R.id.test);
-        test.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                TelephonyManager manager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-                String deviceid = manager.getDeviceId();
-                Toast.makeText(HomeActivity.this.getApplicationContext(),
-                        deviceid, Toast.LENGTH_LONG).show();
             }
         });
     }
