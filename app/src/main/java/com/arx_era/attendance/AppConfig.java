@@ -5,8 +5,8 @@ package com.arx_era.attendance;
  */
 public class AppConfig {
     // Server user login url
-    public static String URL_LOGIN = "https://arxtest.000webhostapp.com/login.php";
+    public static String URL_LOGIN = "https://arxtest.000webhostapp.com/server/login.php";
 
     // Server user register url
-    public static String URL_REGISTER = "https://arxtest.000webhostapp.com/register.php";
+    public static String URL_REGISTER = "https://arxtest.000webhostapp.com/server/register.php";
 }
