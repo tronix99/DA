@@ -4,15 +4,16 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/home"
-            android:title="Home" />
+            android:checked="true"
+            android:title="@string/home" />
     </group>
 
-    <item android:title="Settings">
+    <item android:title="@string/settings">
         <menu>
             <item
                 android:id="@+id/logout"
-                android:icon="@android:drawable/ic_menu_send"
-                android:title="Logout" />
+                android:icon="@drawable/logout"
+                android:title="@string/btn_logout" />
         </menu>
     </item>
 
