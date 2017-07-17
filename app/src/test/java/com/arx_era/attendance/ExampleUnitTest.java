@@ -1,4 +1,4 @@
-package com.arx_era.digitalattendance;
+package com.arx_era.attendance;
 
 import org.junit.Test;
 

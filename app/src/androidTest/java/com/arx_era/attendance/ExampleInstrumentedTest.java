@@ -1,4 +1,4 @@
-package com.arx_era.digitalattendance;
+package com.arx_era.attendance;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

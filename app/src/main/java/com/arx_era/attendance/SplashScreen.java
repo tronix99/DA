@@ -1,4 +1,4 @@
-package com.arx_era.digitalattendance;
+package com.arx_era.attendance;
 
 /**
  * Created by Tronix99 on 14-07-2017.

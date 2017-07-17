@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Digital Attendance</string>
+    <string name="app_name">Attendance - Teacher Login</string>
 
     //activity_login.xml
     <string name="login_username">Username</string>

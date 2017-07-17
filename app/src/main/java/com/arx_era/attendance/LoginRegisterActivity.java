@@ -1,4 +1,4 @@
-package com.arx_era.digitalattendance;
+package com.arx_era.attendance;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

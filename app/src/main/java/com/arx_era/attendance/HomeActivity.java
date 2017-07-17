@@ -1,4 +1,4 @@
-package com.arx_era.digitalattendance;
+package com.arx_era.attendance;
 
 import android.content.Intent;
 import android.os.Bundle;
