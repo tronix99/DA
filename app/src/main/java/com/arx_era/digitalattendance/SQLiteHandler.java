@@ -25,7 +25,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     // Login Table Columns names
     private static final String KEY_ID = "id";
-    private static final String KEY_NAME = "username";
+    private static final String KEY_TEACHER_NAME = "teachername";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_IMEI = "imeiid";
     private static final String KEY_UID = "uid";
@@ -39,7 +39,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_NAME + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
+                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TEACHER_NAME + " TEXT,"
                 + KEY_EMAIL + " TEXT UNIQUE," + KEY_IMEI + " TEXT UNIQUE," + KEY_UID + " TEXT,"
                 + KEY_CREATED_AT + " TEXT" + ")";
         db.execSQL(CREATE_LOGIN_TABLE);
@@ -57,11 +57,11 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
 
     //Storing user details in database
-    public void addUser(String username, String email, String imeiid, String uid, String created_at) {
+    public void addUser(String teachername, String email, String imeiid, String uid, String created_at) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, username); // Username
+        values.put(KEY_TEACHER_NAME, teachername); // Teachername
         values.put(KEY_EMAIL, email); // Email
         values.put(KEY_IMEI, imeiid); // Imei
         values.put(KEY_UID, uid); // uid
@@ -82,7 +82,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         // Move to first row
         cursor.moveToFirst();
         if (cursor.getCount() > 0) {
-            user.put("username", cursor.getString(1));
+            user.put("teachername", cursor.getString(1));
             user.put("email", cursor.getString(2));
             user.put("imeiid", cursor.getString(3));
             user.put("uid", cursor.getString(4));

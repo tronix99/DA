@@ -1,19 +1,17 @@
 package com.arx_era.digitalattendance;
 
-import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import java.util.HashMap;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.util.HashMap;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private TextView txtName,txtEmail,txtImeiid;
+    private TextView txtTeacherName,txtEmail,txtImeiid;
     private Button btnLogout;
     private SQLiteHandler db;
     private SessionManager session;
@@ -23,7 +21,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        txtName = (TextView) findViewById(R.id.name);
+        txtTeacherName = (TextView) findViewById(R.id.name);
         txtEmail = (TextView) findViewById(R.id.email);
         txtImeiid = (TextView) findViewById(R.id.imeiid);
         btnLogout = (Button) findViewById(R.id.btnLogout);
@@ -37,12 +35,12 @@ public class HomeActivity extends AppCompatActivity {
         // Fetching user details from sqlite
         HashMap<String, String> user = db.getUserDetails();
 
-        String name = user.get("username");
+        String teachername = user.get("teachername");
         String email = user.get("email");
         String imeiid = user.get("imeiid");
 
         // Displaying the user details on the screen
-        txtName.setText(name);
+        txtTeacherName.setText(teachername);
         txtEmail.setText(email);
         txtImeiid.setText(imeiid);
 

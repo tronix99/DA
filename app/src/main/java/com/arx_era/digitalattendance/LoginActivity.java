@@ -33,7 +33,7 @@ public class LoginActivity extends Fragment {
 
     private static final String TAG = RegisterActivity.class.getSimpleName();
     private Button btnLogin;
-    private EditText inputUsername;
+    private EditText inputTeachername;
     private EditText inputPassword;
     private ProgressDialog pDialog;
     private SessionManager session;
@@ -45,7 +45,7 @@ public class LoginActivity extends Fragment {
 
         View rootView = inflater.inflate(R.layout.activity_login, container, false);
 
-        inputUsername = (EditText) rootView.findViewById(R.id.username);
+        inputTeachername = (EditText) rootView.findViewById(R.id.username);
         inputPassword = (EditText) rootView.findViewById(R.id.password);
         btnLogin = (Button) rootView.findViewById(R.id.btnLogin);
 
@@ -63,14 +63,14 @@ public class LoginActivity extends Fragment {
         btnLogin.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                String username = inputUsername.getText().toString().trim();
+                String teachername = inputTeachername.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
                 TelephonyManager manager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
                 String imeiid = manager.getDeviceId();
                 // Check for empty data in the form
-                if (!username.isEmpty() && !password.isEmpty()) {
+                if (!teachername.isEmpty() && !password.isEmpty()) {
                     // login user
-                    checkLogin(username, imeiid, password);
+                    checkLogin(teachername, imeiid, password);
                 } else {
                     // Prompt user to enter credentials
                     Toast.makeText(getActivity().getApplicationContext(),
@@ -87,7 +87,7 @@ public class LoginActivity extends Fragment {
     /**
      * function to verify login details in mysql db
      * */
-    private void checkLogin(final String username, final String imeiid, final String password) {
+    private void checkLogin(final String teachername, final String imeiid, final String password) {
         // Tag used to cancel the request
         String tag_string_req = "req_login";
 
@@ -114,14 +114,14 @@ public class LoginActivity extends Fragment {
                         String uid = jObj.getString("uid");
 
                         JSONObject user = jObj.getJSONObject("user");
-                        String username = user.getString("username");
+                        String teachername = user.getString("teachername");
                         String email = user.getString("email");
                         String imeiid = user.getString("imeiid");
                         String created_at = user
                                 .getString("created_at");
 
                         // Inserting row in users table
-                        db.addUser(username, email, imeiid, uid, created_at);
+                        db.addUser(teachername, email, imeiid, uid, created_at);
 
                         // Launch main activity
                         Intent intent = new Intent(getActivity(),
@@ -156,7 +156,7 @@ public class LoginActivity extends Fragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("username", username);
+                params.put("teachername", teachername);
                 params.put("imeiid", imeiid);
                 params.put("password", password);
 
