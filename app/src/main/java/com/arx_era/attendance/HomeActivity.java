@@ -31,10 +31,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         // SqLite database handler
         db = new SQLiteHandler(getApplicationContext());
-
         // session manager
         session = new SessionManager(getApplicationContext());
-
         // Fetching user details from sqlite
         HashMap<String, String> user = db.getUserDetails();
 
@@ -45,26 +43,26 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
         mActionBarToolbar.setTitle("Welcome " + teachername);
         setSupportActionBar(mActionBarToolbar);
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.DrawerLayout);
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, mActionBarToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-
         navigationView.setNavigationItemSelectedListener(this);
 
+        // Displaying the user details on the header
+        View headerView = navigationView.getHeaderView(0);
+        txtTeacherName = (TextView) headerView.findViewById(R.id.teachername);
+        txtEmail = (TextView) headerView.findViewById(R.id.email);
+        txtTeacherName.setText(teachername);
+        txtEmail.setText(email);
+
         /**
-        txtTeacherName = (TextView) findViewById(R.id.name);
-        txtEmail = (TextView) findViewById(R.id.email);
+
         txtImeiid = (TextView) findViewById(R.id.imeiid);
         btnLogout = (Button) findViewById(R.id.btnLogout);
 
-        // Displaying the user details on the screen
-        txtTeacherName.setText(teachername);
-        txtEmail.setText(email);
         txtImeiid.setText(imeiid);
 
         // Logout button click event
@@ -117,6 +115,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        if (id == R.id.logout) {
+            logoutUser();
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.DrawerLayout);
         drawer.closeDrawer(GravityCompat.START);
