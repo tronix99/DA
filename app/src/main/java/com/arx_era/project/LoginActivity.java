@@ -1,4 +1,4 @@
-package com.arx_era.attendance;
+package com.arx_era.project;
 
 /**
  * Created by Tronix99 on 10-07-2017.
@@ -6,9 +6,9 @@ package com.arx_era.attendance;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,87 +28,88 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-
-public class RegisterActivity extends Fragment {
+public class LoginActivity extends Fragment {
 
     private static final String TAG = RegisterActivity.class.getSimpleName();
-    private Button btnRegister;
+    private Button btnLogin;
     private EditText inputTeachername;
-    private EditText inputEmail;
     private EditText inputPassword;
     private ProgressDialog pDialog;
     private SessionManager session;
     private SQLiteHandler db;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.activity_register, container, false);
+        View rootView = inflater.inflate(R.layout.activity_login, container, false);
 
         inputTeachername = (EditText) rootView.findViewById(R.id.username);
-        inputEmail = (EditText) rootView.findViewById(R.id.email);
         inputPassword = (EditText) rootView.findViewById(R.id.password);
-        btnRegister = (Button) rootView.findViewById(R.id.btnRegister);
+        btnLogin = (Button) rootView.findViewById(R.id.btnLogin);
 
         // Progress dialog
         pDialog = new ProgressDialog(getActivity());
         pDialog.setCancelable(false);
 
-        // Session manager
-        session = new SessionManager(getActivity().getApplicationContext());
-
         // SQLite database handler
         db = new SQLiteHandler(getActivity().getApplicationContext());
 
-        // Register Button Click event
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        // Session manager
+        session = new SessionManager(getActivity().getApplicationContext());
+
+        // Login button Click Event
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+
             public void onClick(View view) {
                 String teachername = inputTeachername.getText().toString().trim();
-                String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
                 TelephonyManager manager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
                 String imeiid = manager.getDeviceId();
-
-                if (!teachername.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
-                    registerUser(teachername, email, imeiid, password);
+                // Check for empty data in the form
+                if (!teachername.isEmpty() && !password.isEmpty()) {
+                    // login user
+                    checkLogin(teachername, imeiid, password);
                 } else {
+                    // Prompt user to enter credentials
                     Toast.makeText(getActivity().getApplicationContext(),
-                            "Please enter your details!", Toast.LENGTH_LONG)
+                            "Please enter the credentials!", Toast.LENGTH_LONG)
                             .show();
                 }
             }
+
         });
 
         return rootView;
     }
 
     /**
-     * Function to store user in MySQL database will post params(tag, name,
-     * email, password) to register url
-     */
-    private void registerUser(final String teachername, final String email,
-                              final String imeiid, final String password) {
+     * function to verify login details in mysql db
+     * */
+    private void checkLogin(final String teachername, final String imeiid, final String password) {
         // Tag used to cancel the request
-        String tag_string_req = "req_register";
+        String tag_string_req = "req_login";
 
-        pDialog.setMessage("Registering ...");
+        pDialog.setMessage("Logging in ...");
         showDialog();
 
         StringRequest strReq = new StringRequest(Method.POST,
-                AppConfig.URL_REGISTER, new Response.Listener<String>() {
+                AppConfig.URL_LOGIN, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
                 hideDialog();
-
                 try {
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
+
+                    // Check for error node in json
                     if (!error) {
-                        // User successfully stored in MySQL
-                        // Now store the user in sqlite
+                        // user successfully logged in
+                        // Create login session
+                        session.setLogin(true);
+
+                        // Now store the user in SQLite
                         String uid = jObj.getString("uid");
 
                         JSONObject user = jObj.getJSONObject("user");
@@ -121,21 +122,22 @@ public class RegisterActivity extends Fragment {
                         // Inserting row in users table
                         db.addUser(teachername, email, imeiid, uid, created_at);
 
-                        Toast.makeText(getActivity().getApplicationContext(), "User successfully registered. Try login now!", Toast.LENGTH_LONG).show();
-
-                        ViewPager viewPager =(ViewPager) getActivity().findViewById(R.id.viewpager);
-                        viewPager.setCurrentItem(0);
+                        // Launch main activity
+                        Intent intent = new Intent(getActivity(),
+                                HomeActivity.class);
+                        startActivity(intent);
+                        getActivity().finish();
 
                     } else {
-
-                        // Error occurred in registration. Get the error
-                        // message
+                        // Error in login. Get the error message
                         String errorMsg = jObj.getString("error_msg");
                         Toast.makeText(getActivity().getApplicationContext(),
                                 errorMsg, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
+                    // JSON error
                     e.printStackTrace();
+                    Toast.makeText(getActivity().getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -151,10 +153,9 @@ public class RegisterActivity extends Fragment {
 
             @Override
             protected Map<String, String> getParams() {
-                // Posting params to register url
+                // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("teachername", teachername);
-                params.put("email", email);
                 params.put("imeiid", imeiid);
                 params.put("password", password);
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Attendance - Teacher Login</string>
+    <string name="app_name">Project</string>
 
     //activity_login.xml
     <string name="login_username">Username</string>

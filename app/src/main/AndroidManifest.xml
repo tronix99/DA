@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.arx_era.attendance">
+    package="com.arx_era.project">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
-        android:name="com.arx_era.attendance.AppController"
+        android:name="com.arx_era.project.AppController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -15,7 +15,7 @@
 
         <!-- Splash screen -->
         <activity
-            android:name="com.arx_era.attendance.SplashScreen"
+            android:name="com.arx_era.project.SplashScreen"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -25,9 +25,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.arx_era.attendance.HomeActivity"
+        <activity android:name="com.arx_era.project.HomeActivity"
             android:theme="@style/HomeActivity"/>
-        <activity android:name="com.arx_era.attendance.LoginRegisterActivity"/>
+        <activity android:name="com.arx_era.project.LoginRegisterActivity"/>
     </application>
 
 </manifest>

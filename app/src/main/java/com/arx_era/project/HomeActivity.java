@@ -1,4 +1,4 @@
-package com.arx_era.attendance;
+package com.arx_era.project;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -42,7 +42,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
         mActionBarToolbar.setTitle("Welcome " + teachername);
-        setSupportActionBar(mActionBarToolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.DrawerLayout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, mActionBarToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

@@ -1,4 +1,4 @@
-package com.arx_era.attendance;
+package com.arx_era.project;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
