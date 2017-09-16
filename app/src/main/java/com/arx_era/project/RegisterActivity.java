@@ -31,10 +31,9 @@ import java.util.Map;
 
 public class RegisterActivity extends Fragment {
 
-    private static final String TAG = RegisterActivity.class.getSimpleName();
     private Button btnRegister;
-    private EditText inputTeachername;
-    private EditText inputEmail;
+    private EditText inputUserName;
+    private EditText inputCategory;
     private EditText inputPassword;
     private ProgressDialog pDialog;
     private SessionManager session;
@@ -47,8 +46,8 @@ public class RegisterActivity extends Fragment {
 
         View rootView = inflater.inflate(R.layout.activity_register, container, false);
 
-        inputTeachername = (EditText) rootView.findViewById(R.id.username);
-        inputEmail = (EditText) rootView.findViewById(R.id.email);
+        inputUserName = (EditText) rootView.findViewById(R.id.username);
+        inputCategory = (EditText) rootView.findViewById(R.id.category);
         inputPassword = (EditText) rootView.findViewById(R.id.password);
         btnRegister = (Button) rootView.findViewById(R.id.btnRegister);
 
@@ -65,14 +64,13 @@ public class RegisterActivity extends Fragment {
         // Register Button Click event
         btnRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                String teachername = inputTeachername.getText().toString().trim();
-                String email = inputEmail.getText().toString().trim();
+                String username = inputUserName.getText().toString().trim();
+                String category = inputCategory.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
                 TelephonyManager manager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
                 String imeiid = manager.getDeviceId();
-
-                if (!teachername.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
-                    registerUser(teachername, email, imeiid, password);
+                if (!username.isEmpty() && !password.isEmpty() && !category.isEmpty()) {
+                    registerUser(username, category, imeiid, password);
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(),
                             "Please enter your details!", Toast.LENGTH_LONG)
@@ -88,7 +86,7 @@ public class RegisterActivity extends Fragment {
      * Function to store user in MySQL database will post params(tag, name,
      * email, password) to register url
      */
-    private void registerUser(final String teachername, final String email,
+    private void registerUser(final String username, final String category,
                               final String imeiid, final String password) {
         // Tag used to cancel the request
         String tag_string_req = "req_register";
@@ -112,14 +110,14 @@ public class RegisterActivity extends Fragment {
                         String uid = jObj.getString("uid");
 
                         JSONObject user = jObj.getJSONObject("user");
-                        String teachername = user.getString("teachername");
-                        String email = user.getString("email");
+                        String username = user.getString("username");
+                        String category = user.getString("category");
                         String imeiid = user.getString("imeiid");
                         String created_at = user
                                 .getString("created_at");
 
                         // Inserting row in users table
-                        db.addUser(teachername, email, imeiid, uid, created_at);
+                        db.addUser(username, category, imeiid, uid, created_at);
 
                         Toast.makeText(getActivity().getApplicationContext(), "User successfully registered. Try login now!", Toast.LENGTH_LONG).show();
 
@@ -132,7 +130,7 @@ public class RegisterActivity extends Fragment {
                         // message
                         String errorMsg = jObj.getString("error_msg");
                         Toast.makeText(getActivity().getApplicationContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
+                                errorMsg , Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -153,8 +151,8 @@ public class RegisterActivity extends Fragment {
             protected Map<String, String> getParams() {
                 // Posting params to register url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("teachername", teachername);
-                params.put("email", email);
+                params.put("username", username);
+                params.put("category", category);
                 params.put("imeiid", imeiid);
                 params.put("password", password);
 

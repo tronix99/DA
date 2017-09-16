@@ -30,9 +30,9 @@ import java.util.Map;
 
 public class LoginActivity extends Fragment {
 
-    private static final String TAG = RegisterActivity.class.getSimpleName();
     private Button btnLogin;
-    private EditText inputTeachername;
+    private EditText inputUserName;
+    private EditText inputCategory;
     private EditText inputPassword;
     private ProgressDialog pDialog;
     private SessionManager session;
@@ -44,7 +44,8 @@ public class LoginActivity extends Fragment {
 
         View rootView = inflater.inflate(R.layout.activity_login, container, false);
 
-        inputTeachername = (EditText) rootView.findViewById(R.id.username);
+        inputUserName = (EditText) rootView.findViewById(R.id.username);
+        inputCategory = (EditText) rootView.findViewById(R.id.category);
         inputPassword = (EditText) rootView.findViewById(R.id.password);
         btnLogin = (Button) rootView.findViewById(R.id.btnLogin);
 
@@ -62,14 +63,15 @@ public class LoginActivity extends Fragment {
         btnLogin.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                String teachername = inputTeachername.getText().toString().trim();
+                String username = inputUserName.getText().toString().trim();
+                String category = inputCategory.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
                 TelephonyManager manager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
                 String imeiid = manager.getDeviceId();
                 // Check for empty data in the form
-                if (!teachername.isEmpty() && !password.isEmpty()) {
+                if (!username.isEmpty() && !password.isEmpty() && !category.isEmpty()) {
                     // login user
-                    checkLogin(teachername, imeiid, password);
+                    checkLogin(username, imeiid, password, category);
                 } else {
                     // Prompt user to enter credentials
                     Toast.makeText(getActivity().getApplicationContext(),
@@ -86,7 +88,7 @@ public class LoginActivity extends Fragment {
     /**
      * function to verify login details in mysql db
      * */
-    private void checkLogin(final String teachername, final String imeiid, final String password) {
+    private void checkLogin(final String username, final String imeiid, final String password ,final String category) {
         // Tag used to cancel the request
         String tag_string_req = "req_login";
 
@@ -113,14 +115,14 @@ public class LoginActivity extends Fragment {
                         String uid = jObj.getString("uid");
 
                         JSONObject user = jObj.getJSONObject("user");
-                        String teachername = user.getString("teachername");
-                        String email = user.getString("email");
+                        String username = user.getString("username");
+                        String category = user.getString("category");
                         String imeiid = user.getString("imeiid");
                         String created_at = user
                                 .getString("created_at");
 
                         // Inserting row in users table
-                        db.addUser(teachername, email, imeiid, uid, created_at);
+                        db.addUser(username, category, imeiid, uid, created_at);
 
                         // Launch main activity
                         Intent intent = new Intent(getActivity(),
@@ -155,9 +157,10 @@ public class LoginActivity extends Fragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("teachername", teachername);
+                params.put("username", username);
                 params.put("imeiid", imeiid);
                 params.put("password", password);
+                params.put("category", category);
 
                 return params;
             }

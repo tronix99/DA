@@ -4,60 +4,72 @@
     android:layout_height="fill_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="10dp" >
+    android:padding="10dp">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp" >
-
+        android:gravity="center"
+        android:textColorHint="@color/white">
         <EditText
             android:id="@+id/username"
-            android:layout_width="fill_parent"
+            android:layout_width="300dp"
             android:layout_height="50dp"
-            android:background="@drawable/topedgerect"
-            android:paddingStart="10dp"
+            android:backgroundTint="@color/white"
+            android:drawableEnd="@drawable/user"
+            android:drawablePadding="10dp"
             android:hint="@string/register_name"
-            android:singleLine="true"
             android:inputType="textCapWords"
+            android:maxLines="1"
             android:textColor="@color/white"
-            android:textColorHint="@color/white"/>
+            android:textSize="20sp" />
+    </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:background="@color/traslucent"
-            android:paddingStart="10dp"
-            android:hint="@string/register_email"
-            android:inputType="textEmailAddress"
-            android:singleLine="true"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"/>
-
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColorHint="@color/white">
         <EditText
             android:id="@+id/password"
-            android:layout_width="fill_parent"
+            android:layout_width="300dp"
             android:layout_height="50dp"
-            android:background="@drawable/botedgerect"
-            android:paddingStart="10dp"
+            android:backgroundTint="@color/white"
+            android:drawableEnd="@drawable/lock"
+            android:drawablePadding="10dp"
             android:hint="@string/register_password"
             android:inputType="textPassword"
-            android:singleLine="true"
+            android:maxLines="1"
             android:textColor="@color/white"
-            android:textColorHint="@color/white"/>
+            android:textSize="20sp" />
+    </android.support.design.widget.TextInputLayout>
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btnRegister"
-            android:layout_width="fill_parent"
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColorHint="@color/white">
+        <EditText
+            android:id="@+id/category"
+            android:layout_width="300dp"
             android:layout_height="50dp"
-            android:layout_marginTop="5dp"
-            android:elevation="4dp"
+            android:backgroundTint="@color/white"
+            android:drawablePadding="10dp"
+            android:hint="@string/category"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btnRegister"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:elevation="2dp"
             android:background="@drawable/edgebutton"
             android:text="@string/btn_register"
             android:textColor="@color/white" />
-    </LinearLayout>
 
 </LinearLayout>
